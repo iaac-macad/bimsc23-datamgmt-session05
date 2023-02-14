@@ -3,6 +3,7 @@ to define variables, methods and imports of other Vue compoennts. -->
 <script setup>
 // Import other Vue components in order to add them to a template.
 import SliderInput from './components/SliderInput.vue'
+import GeometryView from './components/GeometryView.vue'
 
 // Imports from packages
 
@@ -10,22 +11,21 @@ import SliderInput from './components/SliderInput.vue'
 // When ref attribute is added to element, this element then can be referenced
 // in template. It is sort of templatecement of getElementById (but better)
 import { ref } from "vue";
+import { store } from './store.js'
 
 // Define variables and constants
-var count = ref(0)
-var firstSlider = ref(0)
+var firstSlider = ref(10)
 
-// Define functions
-function increment() 
-{
-  count.value++
-  console.log(`Value is: ${count.value}.`)
-}
 
 function updateValue(newValue) {
   firstSlider.value = newValue
+  store.count= newValue
+  console.log(store.count)
 }
+
 </script>
+
+
 
 <!-- Template is a HTML-based syntax that allows you to bind the rendered DOM elements
 with data, objects, functions etc. -->
@@ -40,18 +40,22 @@ with data, objects, functions etc. -->
   </div>
 
   <div id="content">
-    <!-- First example -> button -->
-    <!-- <button @click="increment">Add one more</button>
-    <p>Count is: {{  count }}</p> -->
 
     <!-- This is where another Vue component is injected into template. -->
     <SliderInput 
-    title="Height" v-bind:min="0" v-bind:max="50" v-bind:step="10"
+    title="Height" v-bind:min="0" v-bind:max="100" v-bind:step="10"
     @updateValue="updateValue"/>
 
-  </div>
+    <h2> Value received in App.vue: {{  firstSlider }}</h2>
 
-  <h2> Value received in App.vue: {{  firstSlider }}</h2>
+  </div>
+  
+
+ <div class="geometry">
+
+  <GeometryView :val="firstSlider" />
+
+ </div>
 </template>
 
 <!-- Style is for CSS styling -->
