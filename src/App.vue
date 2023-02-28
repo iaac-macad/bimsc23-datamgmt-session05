@@ -16,13 +16,18 @@ import { ref } from "vue";
 
 // Define variables and constants
 //var count = ref(0);
-var firstSlider = ref(25);
+var firstSlider = ref(20);
+var secondSlider = ref(20);
+var thirdSlider = ref(10);
+
+
 var runToggle = ref(false);
 
 var button1 = "Plus A"
 var button2 = "Plus B"
+var totalCount = ref(0);
 
-var totalCount = 0
+
 
 // Define functions
 //function increment() {
@@ -30,16 +35,32 @@ var totalCount = 0
     //console.log(`Value is: ${count.value}.`);
   //}-->
 
+//(ConeRadius, ConeHeight, ConeSides)
+
   function bringCount (countFromChild){
     totalCount.value += countFromChild
     console.log(totalCount.value)
   }
 
   function updateValue(newValue, parameterName) {
-    if (parameterName === "Height") {
-      firstSlider.value = newValue;
+      if (parameterName === "radius") {
+        firstSlider.value = newValue;
+        
+      }
+      if (parameterName === "height") {
+        secondSlider.value = newValue;
+      }
+      if (parameterName === "radialSegments") {
+        thirdSlider.value = newValue;
+      }
+      
     }
-  }
+
+  
+
+
+
+  
 
 function updateToggle(newValue) {
   runToggle.value = newValue;
@@ -67,7 +88,9 @@ with data, objects, functions etc. -->
     <div>
       <!-- Vue component injected into App.vue component template.
         That makes it App.vue a parent and SliderInput.vue a child. -->
-      <SliderInput title="Height" v-bind:min="1" v-bind:max="50" v-bind:step="1" v-on:updateValue="updateValue" />
+      <SliderInput title="Radius" v-bind:min="1" v-bind:max="40" v-bind:step="1" v-on:updateValue="updateValue" />
+      <SliderInput title="Height" v-bind:min="1" v-bind:max="40" v-bind:step="1" v-on:updateValue="updateValue" />
+      <SliderInput title="Segments" v-bind:min="1" v-bind:max="40" v-bind:step="1" v-on:updateValue="updateValue" />
 
       <ToggleInput title="Run?" v-on:updateValue="updateToggle"></ToggleInput>
 
@@ -77,7 +100,7 @@ with data, objects, functions etc. -->
 
       <h2>Value received in App.vue: {{ firstSlider }}</h2>
       <h2>Value received in App.vue: {{ runToggle }}</h2>
-      <h2>Total Count: {{ count }}</h2>
+      
 
       <p>Total Count is: {{  totalCount }}</p> 
 
@@ -85,7 +108,7 @@ with data, objects, functions etc. -->
     </div>
 
     <div id="content">
-      <GeometryView :size="firstSlider" />
+      <GeometryView :radius="firstSlider" :height="secondSlider" :radialSegments="thirdSlider" />
 
       <!-- uncomment to add another geometryview -->
       <!-- <GeometryView :size="firstSlider"/> -->
