@@ -2,6 +2,8 @@
 to define variables, methods and imports of other Vue compoennts. -->
 <script setup>
 // Import other Vue components in order to add them to a template.
+import ButtonCount from "./components/ButtonCount.vue";
+import { ref } from "vue";
 import SliderInput from "./components/SliderInput.vue";
 import ToggleInput from "./components/ToggleInput.vue";
 import GeometryView from "./components/GeometryView.vue";
@@ -11,12 +13,29 @@ import GeometryView from "./components/GeometryView.vue";
 // Understanding ref article: https://blog.logrocket.com/understanding-vue-refs/#:~:text=Ref%20s%20are%20Vue.,element%20in%20your%20Vue%20instance.
 // When ref attribute is added to element, this element then can be referenced
 // in template. It is sort of templatecement of getElementById (but better)
-import { ref } from "vue";
+
 
 // Define variables and constants
 var count = ref(0);
 var firstSlider = ref(25);
 var runToggle = ref(false);
+
+var button1 = "Data1"
+var button2 = "Data2"
+var button3 = "Data3"
+var button4 = "Data4"
+
+var totalCount = ref(0)
+
+function bringCount(countFromChild){
+
+  totalCount.value += countFromChild
+
+  console.log(totalCount.value)
+
+}
+
+
 
 // Define functions
 function increment() {
@@ -43,7 +62,24 @@ with data, objects, functions etc. -->
       <img class="logo-image" alt="Iaac logo" src="./assets/iaac-white.png" />
       <h2>Digital Tools for Cloud-based Data Management</h2>
     </div>
+
   </div>
+
+  <div>
+
+    <ButtonCount v-bind:title = "button1" v-on:sendCount="bringCount"/>
+    <ButtonCount v-bind:title = "button2" v-on:sendCount="bringCount"/>
+    <ButtonCount v-bind:title = "button3" v-on:sendCount="bringCount"/>
+    <ButtonCount v-bind:title = "button4" v-on:sendCount="bringCount"/>
+
+  </div>
+
+  <div>
+  
+    <p> Total count of data is {{ totalCount }} </p>
+
+  </div>
+
 
   <div id="content">
     <!-- First example -> button -->
