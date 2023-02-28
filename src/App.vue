@@ -18,7 +18,7 @@ import { ref } from "vue";
 //var count = ref(0);
 var firstSlider = ref(20);
 var secondSlider = ref(20);
-var thirdSlider = ref(10);
+var thirdSlider = ref(9);
 
 
 var runToggle = ref(false);
