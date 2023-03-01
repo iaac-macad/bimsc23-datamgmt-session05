@@ -2,6 +2,8 @@
 to define variables, methods and imports of other Vue compoennts. -->
 <script setup>
 // Import other Vue components in order to add them to a template.
+import ButtonCount from "./components/ButtonCount.vue";
+import { ref } from "vue";
 import SliderInput from "./components/SliderInput.vue";
 import ToggleInput from "./components/ToggleInput.vue";
 import GeometryView from "./components/GeometryView.vue";
@@ -11,12 +13,29 @@ import GeometryView from "./components/GeometryView.vue";
 // Understanding ref article: https://blog.logrocket.com/understanding-vue-refs/#:~:text=Ref%20s%20are%20Vue.,element%20in%20your%20Vue%20instance.
 // When ref attribute is added to element, this element then can be referenced
 // in template. It is sort of templatecement of getElementById (but better)
-import { ref } from "vue";
+
 
 // Define variables and constants
 var count = ref(0);
 var firstSlider = ref(25);
 var runToggle = ref(false);
+
+var button1 = "Data1"
+var button2 = "Data2"
+var button3 = "Data3"
+var button4 = "Data4"
+
+var totalCount = ref(0)
+
+function bringCount(countFromChild){
+
+  totalCount.value = totalCount.value + 1; 
+
+  console.log(totalCount.value)
+
+}
+
+
 
 // Define functions
 function increment() {
@@ -32,6 +51,7 @@ function updateValue(newValue, parameterName) {
 
 function updateToggle(newValue) {
   runToggle.value = newValue;
+  console.log(newValue)
 }
 </script>
 
@@ -43,7 +63,24 @@ with data, objects, functions etc. -->
       <img class="logo-image" alt="Iaac logo" src="./assets/iaac-white.png" />
       <h2>Digital Tools for Cloud-based Data Management</h2>
     </div>
+
   </div>
+
+  <div>
+
+    <ButtonCount v-bind:title = "button1" v-on:updateCount="bringCount"/>
+    <ButtonCount v-bind:title = "button2" v-on:updateCount="bringCount"/>
+    <ButtonCount v-bind:title = "button3" v-on:updateCount="bringCount"/>
+    <ButtonCount v-bind:title = "button4" v-on:updateCount="bringCount"/>
+
+  </div>
+
+  <div>
+  
+    <p> Total count of data is {{ totalCount }} </p>
+
+  </div>
+
 
   <div id="content">
     <!-- First example -> button -->
@@ -57,14 +94,14 @@ with data, objects, functions etc. -->
         v-bind:min="1" v-bind:max="50" v-bind:step="1"
         v-on:updateValue="updateValue"/>
 
-      <ToggleInput title="Run?" v-on:updateValue="updateToggle"></ToggleInput>
+      <ToggleInput title="See Geometry" v-on:updateValue="updateToggle"></ToggleInput>
 
       <h2>Value received in App.vue: {{ firstSlider }}</h2>
       <h2>Value received in App.vue: {{ runToggle }}</h2>
     </div>
 
     <div id="content">
-      <GeometryView :size="firstSlider" />
+      <GeometryView :size="firstSlider" :bigcuboid="runToggle"/>
 
       <!-- uncomment to add another geometryview -->
       <!-- <GeometryView :size="firstSlider"/> -->

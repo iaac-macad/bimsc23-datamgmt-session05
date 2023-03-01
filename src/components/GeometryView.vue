@@ -11,7 +11,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 // Property coming from parent component
-const props = defineProps(["size"]);
+const props = defineProps(["size","bigcuboid"]);
+console.log(props.bigcuboid)
 
 // Three js objects
 let renderer, camera, scene, controls, geometry;
@@ -51,7 +52,7 @@ function animate() {
 
 function createBox(l, w, h) {
   geometry = new THREE.BoxGeometry(l, w, h);
-  const material = new THREE.MeshNormalMaterial();
+  const material = new THREE.MeshNormalMaterial({visible:props.bigcuboid});
   const sphere = new THREE.Mesh(geometry, material);
   scene.add(sphere);
 }
