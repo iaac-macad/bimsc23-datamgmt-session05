@@ -12,11 +12,14 @@ import GeometryView from "./components/GeometryView.vue";
 // When ref attribute is added to element, this element then can be referenced
 // in template. It is sort of templatecement of getElementById (but better)
 import { ref } from "vue";
+import { conditionalExpression } from "@babel/types";
 
 // Define variables and constants
-var count = ref(0);
-var firstSlider = ref(25);
-var runToggle = ref(false);
+var slider1 = ref(5);
+var slider2 = ref(5);
+var slider3 = ref(5);
+var slider4 = ref(32);
+var runtoggle = ref(true);
 
 // Define functions
 function increment() {
@@ -25,13 +28,22 @@ function increment() {
 }
 
 function updateValue(newValue, parameterName) {
-  if (parameterName === "Height") {
-    firstSlider.value = newValue;
+  if (parameterName === "RadiusTop") {
+    slider1.value = newValue;
   }
-}
+  if (parameterName === "RadiusBottom") {
+    slider2.value = newValue;
+  }
+  if (parameterName === "Height") {
+    slider3.value = newValue;
+  }
+  if (parameterName === "RadialSegments") {
+    slider4.value = newValue;
+  }
 
-function updateToggle(newValue) {
-  runToggle.value = newValue;
+}
+  function updateToggle(newValue) {
+      runToggle.value = newValue;
 }
 </script>
 
@@ -41,7 +53,7 @@ with data, objects, functions etc. -->
   <div id="top-bar">
     <div id="title-container">
       <img class="logo-image" alt="Iaac logo" src="./assets/iaac-white.png" />
-      <h2>Digital Tools for Cloud-based Data Management</h2>
+      <h2>Digital Tools for Cloud-based Data Management l Sara Kessba Assigment 03</h2>
     </div>
   </div>
 
@@ -53,18 +65,28 @@ with data, objects, functions etc. -->
     <div>
       <!-- Vue component injected into App.vue component template.
       That makes it App.vue a parent and SliderInput.vue a child. -->
+      <SliderInput title="RadiusTop"
+      v-bind:min="0" v-bind:max="10" v-bind:step="1"
+      v-on:updateValue="updateValue"/>
+
+      <SliderInput title="RadiusBottom"
+      v-bind:min="0" v-bind:max="10" v-bind:step="1"
+      v-on:updateValue="updateValue"/>
+
       <SliderInput title="Height"
-        v-bind:min="1" v-bind:max="50" v-bind:step="1"
-        v-on:updateValue="updateValue"/>
+      v-bind:min="1" v-bind:max="30" v-bind:step="1"
+      v-on:updateValue="updateValue"/>
 
-      <ToggleInput title="Run?" v-on:updateValue="updateToggle"></ToggleInput>
+      <SliderInput title="RadialSegments"
+      v-bind:min="1" v-bind:max="32" v-bind:step="1"
+      v-on:updateValue="updateValue"/>
 
-      <h2>Value received in App.vue: {{ firstSlider }}</h2>
-      <h2>Value received in App.vue: {{ runToggle }}</h2>
+      <ToggleInput title="OpenEnded" v-on:updateValue="updateToggle"></ToggleInput>
+
     </div>
 
     <div id="content">
-      <GeometryView :size="firstSlider" />
+      <GeometryView :radiusTop="slider1" :radiusBottom="slider2" :height="slider3" :radialSegments="slider4" :openEnded="runtoggle"/>
 
       <!-- uncomment to add another geometryview -->
       <!-- <GeometryView :size="firstSlider"/> -->
@@ -78,39 +100,40 @@ with data, objects, functions etc. -->
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  color: #2c3e50;
 }
 
 #top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.7);
-}
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /*background-color: rgb(0, 0, 0);*/
+    }
 
-#title-container {
-  display: flex;
-  align-items: center;
-  color: white;
-  margin-right: 1.5rem;
-}
+    #title-container {
+      display: flex;
+      align-items: center;
+      color: white;
+      margin-right: 1.5rem;
+    }
 
-#content {
-  display: flex;
-}
+    #content {
+      display: flex;
+    }
 
-.logo-image {
-  height: 3.25rem;
-  padding: 0.5rem;
-}
-
-h2 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  letter-spacing: -0.05em;
-  font-size: 1.125rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-}
+    .logo-image {
+      height: 3.25rem;
+      padding: 0.5rem;
+    }
+    body {
+      background: rgb(102, 102, 102);
+    }
+    h2 {
+      font-size: 1.125rem;
+      font-weight: 400;
+      letter-spacing: -0.05em;
+      font-size: 1.125rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: white;
+    }
 </style>

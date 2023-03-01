@@ -11,12 +11,12 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 // Property coming from parent component
-const props = defineProps(["size"]);
+const props = defineProps(['radiusTop', 'radiusBottom', 'height', 'radialSegments', 'openEnded']);
 
 // Three js objects
 let renderer, camera, scene, controls, geometry;
 
-let width = 600;
+let width = 1000;
 let heigh = 700;
 
 function init() {
@@ -32,13 +32,13 @@ function init() {
 
   // scene
   scene = new THREE.Scene();
-  scene.background = new THREE.Color("#f5f6fa");
+  scene.background = new THREE.Color("#666666");
 
   // orbit controls
   controls = new OrbitControls(camera, renderer.domElement);
 
   // add fun shape
-  createBox(25, 25, 25);
+  createCylinder(5, 5, 5, 32);
   animate();
 }
 
@@ -49,18 +49,18 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-function createBox(l, w, h) {
-  geometry = new THREE.BoxGeometry(l, w, h);
+function createCylinder(radiusTop, radiusBottom, height, radialSegments,openEnded) {
+  geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments);
   const material = new THREE.MeshNormalMaterial();
-  const sphere = new THREE.Mesh(geometry, material);
-  scene.add(sphere);
+  const cylinder = new THREE.Mesh(geometry, material)
+  scene.add(cylinder);
 }
 
 function onSliderChange(color) {
   scene.clear();
-  createBox(props.size, props.size, props.size);
-}
+  createCylinder(props.radiusTop, props.radiusBottom, props.height, props.radialSegments);
 
+}
 // This function runs at the beginning of the component lifecycle.
 // More about Vue lifecycles: https://vuejs.org/guide/essentials/lifecycle.html#lifecycle-diagram
 onMounted(() => {
@@ -79,11 +79,11 @@ onUpdated(() => {
 #viewport {
   border-style: dashed;
   border-color: #d2dfe8;
-  border-width: 4px;
-  border-radius: 10px;
+  border-width: 1px;
+  border-radius: 3px;
   margin: 12px;
-  height: calc(100vh - 105px);
-  width: 600px;
+  height: 1000px;
+  width: 1000px;
   min-width: 200px;
   position: inherit;
 }

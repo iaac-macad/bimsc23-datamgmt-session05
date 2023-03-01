@@ -11,7 +11,7 @@ const emits = defineEmits(['updateValue'])
 var toggleValue = ref(false)
 
 // Define functions
-function sendToggleUpdate() {
+function cylinder() {
     emits('updateValue', toggleValue.value)
     //console.log(`from child component ${toggleValue.value}`)
 }
@@ -26,7 +26,7 @@ function sendToggleUpdate() {
         <label class="switch" for="checkbox">
             <input type="checkbox" id="checkbox" 
             v-model="toggleValue" 
-            v-on:change="sendToggleUpdate"/>
+            v-on:change="cylinder"/>
 
             <div class="slider round"></div>
         </label>

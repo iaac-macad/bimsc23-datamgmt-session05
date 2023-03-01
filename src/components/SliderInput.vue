@@ -39,7 +39,7 @@ function sendValueUpate()
 
 <style scoped>
 .modern-range {
-  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
   background: linear-gradient(90deg, #f19af3, #f099b5);
   height: 17px;
