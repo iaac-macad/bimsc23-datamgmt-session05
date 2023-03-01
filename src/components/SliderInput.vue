@@ -11,7 +11,7 @@ const emits = defineEmits(['updateValue'])
 
 
 
-var sliderValue = ref(25)
+var sliderValue = ref(20)
 
 function sendValueUpate()
 {
