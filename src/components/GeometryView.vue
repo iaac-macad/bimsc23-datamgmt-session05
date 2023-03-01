@@ -32,7 +32,7 @@ function init() {
 
   // scene
   scene = new THREE.Scene();
-  scene.background = new THREE.Color("#f5f6fa");
+  scene.background = new THREE.Color("white");
 
   // orbit controls
   controls = new OrbitControls(camera, renderer.domElement);
@@ -49,9 +49,9 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-function createBox(l, w, h) {
+function createBox(l, w, h,) {
   geometry = new THREE.BoxGeometry(l, w, h);
-  const material = new THREE.MeshNormalMaterial();
+  const material = new THREE.MeshNormalMaterial({color: '#8AC'});;
   const sphere = new THREE.Mesh(geometry, material);
   scene.add(sphere);
 }
@@ -85,6 +85,6 @@ onUpdated(() => {
   height: calc(100vh - 105px);
   width: 600px;
   min-width: 200px;
-  position: inherit;
+  position: relative;
 }
 </style>
