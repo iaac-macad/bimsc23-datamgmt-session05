@@ -20,7 +20,7 @@ var count = ref(0);
 var firstSlider = ref(25);
 var secondSlider = ref(25);
 var runToggle = ref(false);
-
+var text = ref("something");
 
 // Define functions
 function increment() {
@@ -42,13 +42,11 @@ function updateToggle(newValue) {
   if (newValue === "true") {
     runToggle.value = count;
   }
+}
 
-
-};
-
-
-
-
+function updateTextValue(newValue) {
+  text.value = newValue;
+}
 </script>
 
 <!-- Template is a HTML-based syntax that allows you to bind the rendered DOM elements
@@ -69,16 +67,26 @@ with data, objects, functions etc. -->
     <div>
       <!-- Vue component injected into App.vue component template.
       That makes it App.vue a parent and SliderInput.vue a child. -->
-      <SliderInput title="Scale_1"
-        v-bind:min="1" v-bind:max="50" v-bind:step="1"
-        v-on:updateValue="updateValue"/>
+      <SliderInput
+        title="Scale_1"
+        v-bind:min="1"
+        v-bind:max="50"
+        v-bind:step="1"
+        v-on:updateValue="updateValue"
+      />
 
-      <SliderInput title="Scale_2"
-        v-bind:min="1" v-bind:max="50" v-bind:step="1"
-        v-on:updateValue="updateValue"/>
+      <SliderInput
+        title="Scale_2"
+        v-bind:min="1"
+        v-bind:max="50"
+        v-bind:step="1"
+        v-on:updateValue="updateValue"
+      />
 
-      <ToggleInput title="Run to see Geometry_1" v-on:updateValue="updateToggle"></ToggleInput>
-      
+      <ToggleInput
+        title="Run to see Geometry_1"
+        v-on:updateValue="updateToggle"
+      ></ToggleInput>
 
       <h2>Value received in App.vue: {{ firstSlider }}</h2>
       <h2>Value received in App.vue: {{ secondSlider }}</h2>
@@ -87,24 +95,25 @@ with data, objects, functions etc. -->
 
     <div v-if="runToggle">
       <GeometryView :size="firstSlider" />
-    
-  
+
       <!-- uncomment to add another geometryview -->
       <!-- <GeometryView :size="firstSlider"/> -->
     </div>
     <div id="container">
       <GeometryView :size="secondSlider" />
-    
-  
+
       <!-- uncomment to add another geometryview -->
       <!-- <GeometryView :size="firstSlider"/> -->
     </div>
 
     <div>
-    <text-input label="Enter some text" v-model="text" />
-    <p>You entered: {{ text }}</p>
-  </div>
-
+      <TextInput
+        label="Enter some text"
+        v-model="text"
+        v-on:updateTextInputValue="updateTextValue"
+      />
+      <p>You entered: {{ text }}</p>
+    </div>
   </div>
 </template>
 
