@@ -29,7 +29,7 @@ var totalCount = ref(0)
 
 function bringCount(countFromChild){
 
-  totalCount.value += countFromChild
+  totalCount.value = totalCount.value + 1; 
 
   console.log(totalCount.value)
 
@@ -51,6 +51,7 @@ function updateValue(newValue, parameterName) {
 
 function updateToggle(newValue) {
   runToggle.value = newValue;
+  console.log(newValue)
 }
 </script>
 
@@ -67,10 +68,10 @@ with data, objects, functions etc. -->
 
   <div>
 
-    <ButtonCount v-bind:title = "button1" v-on:sendCount="bringCount"/>
-    <ButtonCount v-bind:title = "button2" v-on:sendCount="bringCount"/>
-    <ButtonCount v-bind:title = "button3" v-on:sendCount="bringCount"/>
-    <ButtonCount v-bind:title = "button4" v-on:sendCount="bringCount"/>
+    <ButtonCount v-bind:title = "button1" v-on:updateCount="bringCount"/>
+    <ButtonCount v-bind:title = "button2" v-on:updateCount="bringCount"/>
+    <ButtonCount v-bind:title = "button3" v-on:updateCount="bringCount"/>
+    <ButtonCount v-bind:title = "button4" v-on:updateCount="bringCount"/>
 
   </div>
 
@@ -93,14 +94,14 @@ with data, objects, functions etc. -->
         v-bind:min="1" v-bind:max="50" v-bind:step="1"
         v-on:updateValue="updateValue"/>
 
-      <ToggleInput title="Run?" v-on:updateValue="updateToggle"></ToggleInput>
+      <ToggleInput title="See Geometry" v-on:updateValue="updateToggle"></ToggleInput>
 
       <h2>Value received in App.vue: {{ firstSlider }}</h2>
       <h2>Value received in App.vue: {{ runToggle }}</h2>
     </div>
 
     <div id="content">
-      <GeometryView :size="firstSlider" />
+      <GeometryView :size="firstSlider" :bigcuboid="runToggle"/>
 
       <!-- uncomment to add another geometryview -->
       <!-- <GeometryView :size="firstSlider"/> -->

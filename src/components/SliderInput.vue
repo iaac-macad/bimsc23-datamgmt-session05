@@ -39,6 +39,7 @@ function sendValueUpate()
 
 <style scoped>
 .modern-range {
+  appearance: none;
   -webkit-appearance: none;
   width: 100%;
   background: linear-gradient(90deg, #f19af3, #f099b5);
@@ -48,6 +49,7 @@ function sendValueUpate()
 }
 
 .modern-range::-webkit-slider-thumb {
+  appearance: none;
   -webkit-appearance: none;
   height: 15px;
   width: 15px;

@@ -22,7 +22,7 @@ console.log(props.title)
 
 //Emits
 
-const Emits = defineEmits ([ 'updateCount'])
+const emits = defineEmits ([ 'updateCount'])
 
 // Define functions
 function increment() {
