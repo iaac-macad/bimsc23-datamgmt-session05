@@ -5,9 +5,9 @@
 }
 
 .input-title {
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'Helvetica', monospace;
   font-size: 1.2rem;
   text-align: left;
-  color: #333;
+  color: #000000;
   margin-bottom: 1rem;
 }

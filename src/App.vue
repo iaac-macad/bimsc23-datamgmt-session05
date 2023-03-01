@@ -5,6 +5,8 @@ to define variables, methods and imports of other Vue compoennts. -->
 import SliderInput from "./components/SliderInput.vue";
 import ToggleInput from "./components/ToggleInput.vue";
 import GeometryView from "./components/GeometryView.vue";
+import TextInput from "./components/TextInput.vue";
+import MyGeometryComponent from "./components/MyGeometryComponent.vue";
 
 // Imports from packages
 
@@ -16,7 +18,9 @@ import { ref } from "vue";
 // Define variables and constants
 var count = ref(0);
 var firstSlider = ref(25);
+var secondSlider = ref(25);
 var runToggle = ref(false);
+
 
 // Define functions
 function increment() {
@@ -25,14 +29,26 @@ function increment() {
 }
 
 function updateValue(newValue, parameterName) {
-  if (parameterName === "Height") {
+  if (parameterName === "Scale_1") {
     firstSlider.value = newValue;
+  }
+  if (parameterName === "Scale_2") {
+    secondSlider.value = newValue;
   }
 }
 
 function updateToggle(newValue) {
   runToggle.value = newValue;
-}
+  if (newValue === "true") {
+    runToggle.value = count;
+  }
+
+
+};
+
+
+
+
 </script>
 
 <!-- Template is a HTML-based syntax that allows you to bind the rendered DOM elements
@@ -53,22 +69,42 @@ with data, objects, functions etc. -->
     <div>
       <!-- Vue component injected into App.vue component template.
       That makes it App.vue a parent and SliderInput.vue a child. -->
-      <SliderInput title="Height"
+      <SliderInput title="Scale_1"
         v-bind:min="1" v-bind:max="50" v-bind:step="1"
         v-on:updateValue="updateValue"/>
 
-      <ToggleInput title="Run?" v-on:updateValue="updateToggle"></ToggleInput>
+      <SliderInput title="Scale_2"
+        v-bind:min="1" v-bind:max="50" v-bind:step="1"
+        v-on:updateValue="updateValue"/>
+
+      <ToggleInput title="Run to see Geometry_1" v-on:updateValue="updateToggle"></ToggleInput>
+      
 
       <h2>Value received in App.vue: {{ firstSlider }}</h2>
+      <h2>Value received in App.vue: {{ secondSlider }}</h2>
       <h2>Value received in App.vue: {{ runToggle }}</h2>
     </div>
 
-    <div id="content">
+    <div v-if="runToggle">
       <GeometryView :size="firstSlider" />
-
+    
+  
       <!-- uncomment to add another geometryview -->
       <!-- <GeometryView :size="firstSlider"/> -->
     </div>
+    <div id="container">
+      <GeometryView :size="secondSlider" />
+    
+  
+      <!-- uncomment to add another geometryview -->
+      <!-- <GeometryView :size="firstSlider"/> -->
+    </div>
+
+    <div>
+    <text-input label="Enter some text" v-model="text" />
+    <p>You entered: {{ text }}</p>
+  </div>
+
   </div>
 </template>
 
@@ -78,8 +114,8 @@ with data, objects, functions etc. -->
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   color: #2c3e50;
+  height: 100vh;
 }
 
 #top-bar {
@@ -98,6 +134,22 @@ with data, objects, functions etc. -->
 
 #content {
   display: flex;
+  justify-content: space-between;
+  flex-direction: row; /* Change the default value to row */
+}
+
+.item {
+  flex-basis: calc(33.33% - 10px);
+  height: 100px;
+  margin-bottom: 20px;
+  width: 48%; /* Adjust the width of the GeometryView component */
+}
+
+.inline-block {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
 .logo-image {

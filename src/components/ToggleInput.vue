@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue"
+import html2canvas from "html2canvas"
 
 // Define props
 defineProps(['title'])
@@ -13,6 +14,9 @@ var toggleValue = ref(false)
 // Define functions
 function sendToggleUpdate() {
     emits('updateValue', toggleValue.value)
+    
+        
+    
     //console.log(`from child component ${toggleValue.value}`)
 }
 </script>
